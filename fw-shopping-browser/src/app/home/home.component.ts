@@ -1,19 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import { TileComponent } from '../tile/tile.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [TileComponent],
+  imports: [TileComponent, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-  groupNames: string[] = [];
   aliquotGroups: any[] = []
-
 
   constructor(
     private http: HttpClient

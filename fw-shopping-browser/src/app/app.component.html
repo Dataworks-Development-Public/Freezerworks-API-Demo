@@ -1,9 +1,10 @@
 <div>
-    <div style="display: flex;">
+    <div style="display: flex; gap: 10px;">
         <h1 style="flex:1">Fancy Company Sample Shop</h1>
-        <a>Browse Samples</a>
-        <a>My Requests</a>
-        <i class="bi bi-cart"></i>
+        <a routerLink="samples">Browse Samples</a>
+        <a routerLink="my-requests">My Requests</a>
+        <a routerLink="shopping-cart"><i class="bi bi-cart"></i></a>
+        
     </div>
     <main style=" flex:1">
         <router-outlet />
