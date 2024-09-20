@@ -4,7 +4,7 @@ import { catchError, Observable, of } from "rxjs";
 const keyStr: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
 const username = "webuser";
-const pword = "***REMOVED***";
+const pword = "webuser";
 
 export function intercept(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {    
     req = addAuthHeader(req);

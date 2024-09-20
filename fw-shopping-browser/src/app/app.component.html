@@ -1,4 +1,15 @@
-<button (click)="clickHandler()">Press Me</button>
-
-
-<router-outlet />
+<div style="display: flex;">
+    <h1 style="flex:1">Fancy Company Sample Shop</h1>
+    <p style="width:100px">cart img here</p>
+</div>
+<div style="display: flex">
+    <nav style=" width: 200px; ">
+        <ul>
+            <li>Request Samples</li>
+            <li>My Requests</li>
+        </ul>
+    </nav>
+    <main style=" flex:1">
+        <router-outlet />
+    </main>
+</div>
