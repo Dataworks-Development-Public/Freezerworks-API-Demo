@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
+import { TileComponent } from '../tile/tile.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [TileComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -24,7 +25,6 @@ export class HomeComponent implements OnInit {
     this.http.get(`${fwServer}aliquots?limit=0`)
         .pipe(map((res: any) => res.entities)).subscribe((data) => {
           const groupedByType = data.reduce((groups: any, sample: any) => {
-            
             const { Aliquot_Type, WorkflowStatus } = sample;
             if(WorkflowStatus === 'Available') {
               // Initialize the group if it doesn't exist yet
@@ -37,12 +37,18 @@ export class HomeComponent implements OnInit {
             return groups;
           }, {});
 
-          this.groupNames = Object.keys(groupedByType);
-          this.aliquotGroups = groupedByType;
-          console.log(this.groupNames);
-          console.log(groupedByType);
+          for(let group in groupedByType) {
+            this.aliquotGroups.push({
+              'name': group,
+              'data': groupedByType[group]
+          });
+          }
+          
+          console.log(this.aliquotGroups);
 
         });
+
+        
   }
 
 }

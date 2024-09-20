@@ -1,7 +1,6 @@
 <p>aliquot groups:</p>
-<ul>
-    
-    @for (groupName of groupNames; track groupName){
-        <li>{{groupName}}</li>
+<div class="tilesContainer">    
+    @for (group of aliquotGroups; track group){
+        <app-tile [group]="group"></app-tile>
     }    
-</ul>
+</div>
