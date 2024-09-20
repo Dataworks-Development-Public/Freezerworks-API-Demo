@@ -1,36 +1,35 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHandlerFn, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { catchError, Observable, of } from "rxjs";
 
-    const keyStr: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-    
-    const username = "adminuser";
-    const pword = "admin";
+const keyStr: string = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
-    export function intercept(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {
-       
-        req = addAuthHeader(req);
-        return next(req)
-            .pipe(catchError((error) => handleHttpError(error, req)));
-        }
-  
-        function handleHttpError (
-          error: HttpErrorResponse,
-          req: HttpRequest<unknown>
-        ): Observable<any> {
-          return of({error:"there was a problem"})
-          }
-  
+const username = "webuser";
+const pword = "***REMOVED***";
 
-    function addAuthHeader(req: HttpRequest<any>) {
-        const modifiedRequest = req.clone({ setHeaders: { Authorization: 'Basic ' + encode(username + ':' + pword) } })
-        // let modifiedRequest = req.clone({
-        //     headers: req.headers.set('Authorization', 'Basic ' + encode(username + ':' + pword))
-        // });
-        return modifiedRequest;
-    }
+export function intercept(req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> {    
+    req = addAuthHeader(req);
+    return next(req)
+        .pipe(catchError((error) => handleHttpError(error, req)));
+}
+
+function handleHttpError (
+    error: HttpErrorResponse,
+    req: HttpRequest<unknown>
+): Observable<any> {
+    return of({error:"there was a problem"})
+}
 
 
-    function encode(input: string) {
+function addAuthHeader(req: HttpRequest<any>) {
+    // const modifiedRequest = req.clone({ setHeaders: { Authorization: 'Basic ' + encode(username + ':' + pword) } })
+    let modifiedRequest = req.clone({
+        headers: req.headers.set('Authorization', 'Basic ' + encode(username + ':' + pword))
+    });
+    return modifiedRequest;
+}
+
+
+function encode(input: string) {
     let output = '';
     let chr1, chr2, chr3;
     let enc1, enc2, enc3, enc4;
@@ -39,7 +38,6 @@ import { catchError, Observable, of } from "rxjs";
     enc1 = enc2 = enc3 = enc4 = '' as string | number;
 
     let i = 0;
-
 
     while (i < input.length) {
       chr1 = input.charCodeAt(i++);
@@ -68,5 +66,5 @@ import { catchError, Observable, of } from "rxjs";
       enc1 = enc2 = enc3 = enc4 = '';
     }
     return output;
-  }
+}
 
