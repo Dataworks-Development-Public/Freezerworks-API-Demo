@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

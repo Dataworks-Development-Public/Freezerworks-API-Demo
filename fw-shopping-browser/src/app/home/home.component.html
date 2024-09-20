@@ -2,6 +2,9 @@
 <ul>
     
     @for (groupName of groupNames; track groupName){
-        <li>{{groupName}}</li>
+        <li>
+            <a routerLink="./{{groupName}}">{{groupName}}</a>
+        </li>
+        <!-- <li>{{groupName}}</li> -->
     }    
 </ul>
