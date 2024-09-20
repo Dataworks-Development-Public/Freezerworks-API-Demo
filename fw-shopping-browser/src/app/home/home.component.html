@@ -1,4 +1,5 @@
 <p>aliquot groups:</p>
+<button (click)="createRequisition()">Send Request</button>
 <div class="tilesContainer">    
     @for (group of aliquotGroups; track group){
         <app-tile [group]="group" routerLink="./{{group.name}}"></app-tile>

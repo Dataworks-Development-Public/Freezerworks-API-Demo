@@ -50,4 +50,50 @@ export class HomeComponent implements OnInit {
         
   }
 
+  
+
+  createRequisition() {   
+    let requisitionBody = {
+      aliquots: {
+        fieldName: "PK_AliquotUID",
+        aliquotsRequested: ['100010', '100011', '100012', '100013', '100014', '100015', '100016', '100017', '100018', '100019', '100020', '100021']
+      },
+      purpose:"",
+      shipToContactId: 0,
+      customShipToAddress: {
+        active: true,
+        addressCountry: "USA",
+        addressLocality: "Mountlake Terrace",
+        addressPostalCode: "98???",
+        addressRegion: "",
+        addressStateOrProvince: "WA",
+        addressStreet: "Somwhere",
+        addressStreet2: "Someplace",
+        cellNumber: "",
+        custodian: false,
+        email: "",
+        faxNumber: "",
+        filterString: "",
+        firstName: " Me",
+        freezerworksUser: true,
+        fullName: "Me",
+        fullNameOrganization: "  ",
+        id: 0,
+        lastName: "",
+        organizationName: "DWD",
+        protocolContact: false,
+        shipOrganization: "DWD",
+        shipToName: " Me",
+        shippingContact: false,
+        telephoneExtension: "",
+        telephoneNumber: "",
+        userId: 200009
+      }
+    };
+    
+    let fwServer = window.location.protocol + '//' + window.location.hostname + '/api/v1/';
+    this.http.post(`${fwServer}requisitions/`, requisitionBody)
+        .pipe(map((res: any) => res.entities)).subscribe();
+  }
+
 }
