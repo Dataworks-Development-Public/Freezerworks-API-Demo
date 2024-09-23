@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ShoppingCartService } from '../shopping-cart/shopping-cart.service';
+import { ShoppingCartService } from '../services/shopping-cart.service';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-item-detail',
@@ -14,11 +15,13 @@ export class ItemDetailComponent{
   quantity: number = 1;
 
   constructor(
-    public cartSvc: ShoppingCartService
+    public cartSvc: ShoppingCartService,
+    private Router: Router
   ) { }
 
   onAddToCartClick(): void {
     this.cartSvc.addItemToCart(this.sampleType, this.quantity);
+    this.Router.navigateByUrl('/samples');
   }
 
 

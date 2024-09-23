@@ -3,7 +3,7 @@
         <h1 style="flex:1">Fancy Company Sample Shop</h1>
         <a routerLink="samples">Browse Samples</a>
         <a routerLink="my-requests">My Requests</a>
-        <a routerLink="shopping-cart"><i class="bi bi-cart"></i></a>
+        <a routerLink="shopping-cart"><i class="bi bi-cart">{{ cartSvc.cart.length ? cartSvc.cart.length : null }}</i></a>
         
     </div>
     <main style=" flex:1">
