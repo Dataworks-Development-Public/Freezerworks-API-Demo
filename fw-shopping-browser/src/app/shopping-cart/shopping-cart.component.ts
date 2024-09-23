@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ShoppingCartService } from './shopping-cart.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   styleUrl: './shopping-cart.component.scss'
 })
 export class ShoppingCartComponent {
-
+  constructor(public cartSvc: ShoppingCartService) {}
 }

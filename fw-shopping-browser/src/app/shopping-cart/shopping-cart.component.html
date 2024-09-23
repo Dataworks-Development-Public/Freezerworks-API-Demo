@@ -1,1 +1,4 @@
 <p>shopping-cart works!</p>
+@for (item of cartSvc.cart; track item.itemName) {
+    <label>{{ item.itemName }}</label>
+}

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import { TileComponent } from '../tile/tile.component';
+import { ShoppingCartService } from '../shopping-cart/shopping-cart.service';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ export class HomeComponent implements OnInit {
   aliquotGroups: any[] = []
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    public cartSvc: ShoppingCartService
   ){  }
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class HomeComponent implements OnInit {
           });
           }
           
-          console.log(this.aliquotGroups);
+          console.log(this.cartSvc);
 
         });
 
