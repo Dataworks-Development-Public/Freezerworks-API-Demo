@@ -1,10 +1,7 @@
 <p>aliquot groups:</p>
-<ul>
-    
-    @for (groupName of groupNames; track groupName){
-        <li>
-            <a routerLink="./{{groupName}}">{{groupName}}</a>
-        </li>
-        <!-- <li>{{groupName}}</li> -->
+<button (click)="createRequisition()">Send Request</button>
+<div class="tilesContainer">    
+    @for (group of aliquotGroups; track group){
+        <app-tile [group]="group" routerLink="./{{group.name}}"></app-tile>
     }    
-</ul>
+</div>
