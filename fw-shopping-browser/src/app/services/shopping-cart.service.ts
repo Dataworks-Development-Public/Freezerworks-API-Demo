@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { CartItem } from './cart-item.model';
+import { CartItem } from '../shopping-cart/cart-item.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,15 @@ export class ShoppingCartService implements OnInit{
 
    removeItemFromCart(itemIndex: number) {
     this.cart.splice(itemIndex, 1);
-   }
+   }   
+
+  updateItemQuantity(itemId: number, quantity: number) {
+    this.cart[itemId].itemQty = quantity;
+  }
+
+  clearCart() {
+    this.cart = [];
+  }
 
    ngOnInit(): void {
    }

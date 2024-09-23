@@ -1,4 +1,9 @@
-<p>shopping-cart works!</p>
+<p>Items in Cart</p>
 @for (item of cartSvc.cart; track item.itemName) {
-    <label>{{ item.itemName }}</label>
+    <div>
+        <label>{{ item.itemName }}</label>
+        <input type="number" [(ngModel)]="item.itemQty">
+        <button (click)="removeCartItem(item)">remove</button>
+    </div>
 }
+<button routerLink="./checkout">Checkout</button>
