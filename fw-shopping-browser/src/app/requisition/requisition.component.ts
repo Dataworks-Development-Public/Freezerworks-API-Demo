@@ -43,8 +43,9 @@ export class RequisitionFormComponent implements OnInit{
   }
 
   submitRequisition() {
-    this.requisitionSvc.httpCreateRequisition(this.requisition);
-    this.cartSvc.clearCart();
-    this.Router.navigateByUrl('/samples');
+    this.requisitionSvc.httpCreateRequisition(this.requisition).subscribe(() => {
+      this.cartSvc.clearCart();
+      this.Router.navigateByUrl('/samples');
+    });
   }
 }
