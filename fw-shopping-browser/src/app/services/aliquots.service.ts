@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 
 import { map, Observable } from 'rxjs';
 
+import { fwServer } from '../app.component';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +15,6 @@ export class AliquotsService {
   ) { }
 
   httpGetAvailableAliquots(): Observable<any[]> {
-    let fwServer = window.location.protocol + '//' + window.location.hostname + '/api/v1/';
     const aliquotGroups: any[] = [];
     
     return this.http.get(`${fwServer}aliquots?limit=0`).pipe(map((res: any) => {
