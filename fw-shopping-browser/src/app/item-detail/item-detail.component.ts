@@ -22,7 +22,7 @@ export class ItemDetailComponent{
 
   onAddToCartClick(): void {
     // TODO: need to check if the requested QTY is actually available
-    this.cartSvc.addItemToCart(this.sampleType, this.quantity);
+    this.cartSvc.setQuantity(this.sampleType, this.quantity);
     this.Router.navigateByUrl('/samples');
   }
 

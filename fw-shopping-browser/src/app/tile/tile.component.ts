@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Group } from '../interface';
 
 @Component({
   selector: 'app-tile',
@@ -9,7 +8,8 @@ import { Group } from '../interface';
   styleUrl: './tile.component.scss'
 })
 export class TileComponent {
-  @Input() group: Group | undefined
+  @Input({ required: true }) sampleType!: string;
+  @Input({ required: true }) qtyAvailable!: number;
 
   public getTileIcon(type: string | undefined): string {
     let path = "assets/"

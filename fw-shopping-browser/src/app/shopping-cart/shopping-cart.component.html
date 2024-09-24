@@ -1,9 +1,9 @@
 <p>Items in Cart</p>
-@for (item of cartSvc.cart; track item.itemName) {
+@for (item of cartSvc.cart | keyvalue; track item.key) {
     <div>
-        <label>{{ item.itemName }}</label>
-        <input type="number" [(ngModel)]="item.itemQty">
-        <button (click)="removeCartItem(item)">remove</button>
+        <label>{{ item.key }}</label>
+        <input type="number" [(ngModel)]="item.value">
+        <button (click)="removeCartItem(item.key)">remove</button>
     </div>
 }
 <button routerLink="./checkout">Checkout</button>
