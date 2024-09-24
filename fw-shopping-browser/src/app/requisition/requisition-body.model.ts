@@ -1,4 +1,3 @@
-import { STRING_TYPE } from "@angular/compiler";
 
 interface AliquotSet {
     fieldName: string;

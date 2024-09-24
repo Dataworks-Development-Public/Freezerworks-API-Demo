@@ -14,9 +14,12 @@ export class RequisitionService {
     private http: HttpClient,
   ) { }
 
-
   httpCreateRequisition(requisition: RequisitionBody): Observable<any> {
     let fwServer = window.location.protocol + '//' + window.location.hostname + '/api/v1/';
     return this.http.post(`${fwServer}requisitions/`, requisition).pipe(map((res: any) => res.entities));
   }
+
+  // httpGetRequisitions(): Observable<any> {
+
+  // }
 }
