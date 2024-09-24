@@ -1,2 +1,26 @@
-<p>my-requests works!</p>
-<p>testing my git push</p>
+<div class="d-flex-column">
+    <h1>Open Requests</h1>
+    @for (request of myRequests; track request.properties.id) {
+        <div class="card m-3" style="width: 30rem;">
+            <h4 class="card-title m-2">Requisition ID: {{ request.properties.id }}</h4>            
+            <div class="card-body m-2">
+                <div class="row">
+                    <p class="col-sm-5">Date requested: </p>
+                    <p class="col-sm-5">{{ request.properties.requisitionDate }}</p>
+                </div>
+                <div class="row">
+                    <p class="col-sm-5">Status: </p>
+                    <p class="col-sm-5">{{ request.properties.statusText }}</p>
+                </div>
+                <div class="row">
+                    <p class="col-sm-5">Purpose of requisition: </p>
+                    <p class="col-sm-5">{{ request.properties.purpose }}</p>
+                </div>
+                <div class="row">
+                    <p class="col-sm-5">Aliquots requested: </p>
+                    <p class="col-sm-5">{{ request.properties.numberOfAliquots }}</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
