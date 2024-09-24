@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, Router, RouterLink } from '@angular/router';
+import { RouterOutlet, RouterLink } from '@angular/router';
 
 import { TileComponent } from './tile/tile.component';
 
 import { ShoppingCartService } from './services/shopping-cart.service';
 import { KeyValuePipe } from '@angular/common';
+
+
+export const fwServer = window.location.protocol + '//' + window.location.hostname + '/api/v1/';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +18,6 @@ import { KeyValuePipe } from '@angular/common';
 })
 export class AppComponent {
   constructor(
-    public cartSvc: ShoppingCartService,
-    private router: Router, 
+    public cartSvc: ShoppingCartService
   ){ }  
 }

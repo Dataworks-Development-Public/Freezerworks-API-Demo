@@ -1,16 +1,18 @@
-
-<div style="display: flex">
-    <h3>Aliquot Groups</h3>
-    @if(aliquotsSvc.isLoading) {
-        <h5>Loading...</h5>
-    }
-</div>
-<div class="tilesContainer">    
-    @for (group of aliquotsSvc.availableAliquotGroups | keyvalue; track group.key){
-        <app-tile  [sampleType]="group.key" [qtyAvailable]="group.value.length" routerLink="./{{group.key}}"></app-tile>
-    } @empty {
+<div class="">
+    <div style="display: flex">
+        <h3>Aliquot Selection</h3>
+        @if(aliquotsSvc.isLoading) {
+            <h5 style="margin: 5px 5px 5px 50px;">Loading aliquots...</h5>
+        }
+    </div>
+    
+    <div class="tilesContainer">    
+        @for (group of aliquotsSvc.availableAliquotGroups | keyvalue; track group.key){
+            <app-tile [sampleType]="group.key" [qtyAvailable]="group.value.length" routerLink="./{{group.key}}"></app-tile>
+        }  @empty {
         @if( !aliquotsSvc.isLoading) {
             <h2>No Aliquots found</h2>
         }
-    }
+    }   
+    </div>
 </div>

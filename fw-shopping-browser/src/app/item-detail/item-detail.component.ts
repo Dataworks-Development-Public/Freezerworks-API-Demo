@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -17,7 +17,7 @@ export class ItemDetailComponent{
 
   constructor(
     private Router: Router,
-    public cartSvc: ShoppingCartService
+    private cartSvc: ShoppingCartService
   ) { }
 
   onAddToCartClick(): void {

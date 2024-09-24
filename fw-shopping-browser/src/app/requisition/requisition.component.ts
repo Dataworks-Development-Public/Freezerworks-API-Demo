@@ -20,10 +20,10 @@ export class RequisitionFormComponent implements OnInit{
   public requisition = new RequisitionBody();
 
   constructor(
-    public cartSvc: ShoppingCartService,
-    public requisitionSvc: RequisitionService,
     private aliquotsSvc: AliquotsService,
-    private Router: Router
+    private Router: Router,
+    private requisitionSvc: RequisitionService,
+    public cartSvc: ShoppingCartService
   ) { }
 
   ngOnInit(): void {

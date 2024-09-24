@@ -3,6 +3,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Aliquot } from '../interface';
 import { map, Observable } from 'rxjs';
 
+import { fwServer } from '../app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -40,8 +41,6 @@ export class AliquotsService implements OnDestroy {
   }
 
   httpGetAvailableAliquots(): Observable<Record<string, Aliquot[]>> {
-    let fwServer = window.location.protocol + '//' + window.location.hostname + '/api/v1/';
-    
     return this.http.get(`${fwServer}aliquots?limit=0`).pipe(map((res: any) => {
       const data = res.entities;
       const groupedByType = data.reduce((groups: Record<string, Aliquot[]>, sample: Aliquot) => {
