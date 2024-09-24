@@ -1,9 +1,9 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingCartService implements OnInit{
+export class ShoppingCartService {
   public cart: Record<string, number> = {}; // maps sampleType -> amount to requisition
 
   constructor() { }
@@ -19,7 +19,4 @@ export class ShoppingCartService implements OnInit{
   clearCart() {
     this.cart = {};
   }
-
-   ngOnInit(): void {
-   }
 }
