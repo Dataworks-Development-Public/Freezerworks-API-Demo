@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnDestroy } from '@angular/core';
-import { Aliquot, Group } from '../interface';
+import { Aliquot } from '../interface';
 import { map, Observable } from 'rxjs';
 
 
@@ -8,7 +8,7 @@ import { map, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AliquotsService implements OnDestroy {
-  public availableAliquotGroups: Group<Aliquot>[] = [];
+  public availableAliquotGroups: Record<string, Aliquot[]> | null = null;
   public isLoading: boolean = false;
   private timeoutId: any = null;
   private stopPolling: boolean = false;
@@ -39,13 +39,12 @@ export class AliquotsService implements OnDestroy {
     }
   }
 
-  httpGetAvailableAliquots(): Observable<any[]> {
+  httpGetAvailableAliquots(): Observable<Record<string, Aliquot[]>> {
     let fwServer = window.location.protocol + '//' + window.location.hostname + '/api/v1/';
-    const aliquotGroups: any[] = [];
     
     return this.http.get(`${fwServer}aliquots?limit=0`).pipe(map((res: any) => {
       const data = res.entities;
-      const groupedByType = data.reduce((groups: any, sample: any) => {
+      const groupedByType = data.reduce((groups: Record<string, Aliquot[]>, sample: Aliquot) => {
         const { Aliquot_Type, WorkflowStatus } = sample;
         if(WorkflowStatus === 'Available') {
           // Initialize the group if it doesn't exist yet
@@ -58,14 +57,7 @@ export class AliquotsService implements OnDestroy {
         return groups;
       }, {});
 
-      for(let group in groupedByType) {
-        aliquotGroups.push({
-          'name': group,
-          'data': groupedByType[group]
-        });
-      }
-
-      return aliquotGroups;
+      return groupedByType;
     }))
   }
 }

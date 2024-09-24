@@ -6,8 +6,8 @@
     }
 </div>
 <div class="tilesContainer">    
-    @for (group of aliquotsSvc.availableAliquotGroups; track group.name){
-        <app-tile [group]="group" routerLink="./{{group.name}}"></app-tile>
+    @for (group of aliquotsSvc.availableAliquotGroups | keyvalue; track group.key){
+        <app-tile  [sampleType]="group.key" [qtyAvailable]="group.value.length" routerLink="./{{group.key}}"></app-tile>
     } @empty {
         @if( !aliquotsSvc.isLoading) {
             <h2>No Aliquots found</h2>

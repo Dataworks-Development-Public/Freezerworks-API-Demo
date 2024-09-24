@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Aliquot, Group } from '../interface';
 
 @Component({
   selector: 'app-tile',
@@ -9,6 +8,6 @@ import { Aliquot, Group } from '../interface';
   styleUrl: './tile.component.scss'
 })
 export class TileComponent {
-  @Input() group: Group<Aliquot> | undefined
-
+  @Input({ required: true }) sampleType!: string;
+  @Input({ required: true }) qtyAvailable!: number;
 }

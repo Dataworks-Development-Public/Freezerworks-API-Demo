@@ -7,11 +7,12 @@ import { RequisitionBody } from './requisition-body.model';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import { RequisitionService } from '../services/requisition.service';
 import { AliquotsService } from '../services/aliquots.service';
+import { KeyValuePipe } from '@angular/common';
 
 @Component({
   selector: 'app-requisition-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, KeyValuePipe],
   templateUrl: './requisition.component.html',
   styleUrl: './requisition.component.scss'
 })
@@ -26,21 +27,21 @@ export class RequisitionFormComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.aliquotsSvc.httpGetAvailableAliquots().subscribe((data) => {
-      let availableAliquots = data;
+    this.aliquotsSvc.httpGetAvailableAliquots().subscribe((availableAliquotGroups) => {
       const requestAliquots = [];
+      const cart = this.cartSvc.cart;
       // compile array of available aliquot ids to be requested
-      for(let group of availableAliquots) {
-        for(let item of this.cartSvc.cart) {
-          if(group.name === item.itemName) {
-            if(group.data.length > item.itemQty) 
-              for(let i=0; i<item.itemQty; i++) 
-                requestAliquots.push(group.data[i].PK_AliquotUID);
-            else {
-              alert(item.itemQty + " x " + item.itemName + " requested but only " + group.data.length + " are available, please adjust amount");
-              this.Router.navigateByUrl('/shopping-cart');
-            }
+      for(let cartSampleType in cart){
+        const cartItemQty = cart[cartSampleType]
+        const availableAliquotGroup = availableAliquotGroups[cartSampleType];
+
+        if(availableAliquotGroup.length > cartItemQty){
+          for(let i = 0; i < cartItemQty; i++) {
+            requestAliquots.push(availableAliquotGroup[i].PK_AliquotUID);
           }
+        } else {
+          alert(cartItemQty + " x " + cartSampleType + " requested but only " + availableAliquotGroup.length + " are available, please adjust amount");
+          this.Router.navigateByUrl('/shopping-cart');
         }
       }
 

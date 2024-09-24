@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 
-import { CartItem } from './cart-item.model';
 
 import { ShoppingCartService } from '../services/shopping-cart.service';
+import { KeyValuePipe } from '@angular/common';
 
 @Component({
   selector: 'app-shopping-cart',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, KeyValuePipe],
   templateUrl: './shopping-cart.component.html',
   styleUrl: './shopping-cart.component.scss'
 })
@@ -19,12 +19,9 @@ export class ShoppingCartComponent {
     public cartSvc: ShoppingCartService
   ) {}
 
-  removeCartItem(item: CartItem) {
+  removeCartItem(sampleType: string) {
     if(confirm("Removing item from cart, are you sure?")) {
-      for(let index in this.cartSvc.cart) {
-        if(this.cartSvc.cart[index] === item)
-          this.cartSvc.removeItemFromCart(Number(index));
-      }
+      this.cartSvc.removeFromCart(sampleType);
     }
   }
 }

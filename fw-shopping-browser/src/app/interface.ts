@@ -1,8 +1,3 @@
-export interface Group<T> {
-    name: string,
-    data: T[]
-}
-
 export interface Aliquot {
     AliquotNumber: number,
     PK_AliquotUID: number,
