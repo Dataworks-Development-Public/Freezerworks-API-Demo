@@ -1,6 +1,9 @@
-<p>aliquot groups:</p>
-<div class="tilesContainer">    
-    @for (group of aliquotGroups; track group){
-        <app-tile [group]="group" routerLink="./{{group.name}}"></app-tile>
-    }    
+
+<div class="">
+    <h3>Aliquot Selection</h3>
+    <div class="tilesContainer">    
+        @for (group of aliquotGroups; track group){
+            <app-tile [group]="group" routerLink="./{{group.name}}"></app-tile>
+        }    
+    </div>
 </div>
