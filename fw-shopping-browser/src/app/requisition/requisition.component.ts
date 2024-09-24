@@ -24,20 +24,22 @@ export class RequisitionFormComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    let availableAliquots = this.aliquotsSvc.httpGetAliquots();
-    this.requisition.aliquots.aliquotsRequested = [];
-    // compile array of available aliquot ids to be requested
-    for(let group of availableAliquots) {
-      for(let item of this.cartSvc.cart) {
-        if(group.name === item.itemName) {
-          for(let i=0; i<item.itemQty; i++) {
-            this.requisition.aliquots.aliquotsRequested.push(
-              group.data[i].PK_AliquotUID
-            )
+    this.aliquotsSvc.httpGetAliquots().subscribe((data) => {
+      let availableAliquots = data;
+      const requestAliquots = [];
+      // compile array of available aliquot ids to be requested
+      for(let group of availableAliquots) {
+        for(let item of this.cartSvc.cart) {
+          if(group.name === item.itemName) {
+            for(let i=0; i<item.itemQty; i++) {
+              requestAliquots.push(group.data[i].PK_AliquotUID) // TODO: need to check if the requested QTY is actually available
+            }
           }
         }
       }
-    }
+
+      this.requisition.aliquots.aliquotsRequested = requestAliquots;
+    });
   }
 
   submitRequisition() {
