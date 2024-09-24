@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Group } from '../interface';
+import { Aliquot, Group } from '../interface';
 
 @Component({
   selector: 'app-tile',
@@ -9,6 +9,6 @@ import { Group } from '../interface';
   styleUrl: './tile.component.scss'
 })
 export class TileComponent {
-  @Input() group: Group | undefined
+  @Input() group: Group<Aliquot> | undefined
 
 }

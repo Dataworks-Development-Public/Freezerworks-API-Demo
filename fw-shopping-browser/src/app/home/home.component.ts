@@ -13,17 +13,10 @@ import { AliquotsService } from '../services/aliquots.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {
-  aliquotGroups: any[] = []
-
+export class HomeComponent {
   constructor(
-    private aliquotsSvc: AliquotsService,
+    public aliquotsSvc: AliquotsService,
     public cartSvc: ShoppingCartService
   ){  }
 
-  ngOnInit(): void {
-      this.aliquotsSvc.httpGetAvailableAliquots().subscribe((data) => {
-        this.aliquotGroups = data;
-      })
-  }
 }

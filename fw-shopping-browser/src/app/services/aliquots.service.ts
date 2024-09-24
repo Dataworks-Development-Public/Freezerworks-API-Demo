@@ -1,16 +1,43 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-
+import { Injectable, OnDestroy } from '@angular/core';
+import { Aliquot, Group } from '../interface';
 import { map, Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class AliquotsService {
+export class AliquotsService implements OnDestroy {
+  public availableAliquotGroups: Group<Aliquot>[] = [];
+  public isLoading: boolean = false;
+  private timeoutId: any = null;
+  private stopPolling: boolean = false;
+  readonly DELAY_SECONDS: number = 5 // TODO: make this longer  (probably 30 seconds)
 
-  constructor(
-    private http: HttpClient,
-  ) { }
+  constructor(private http: HttpClient) { 
+    this.refreshAvailAliquotGroups();
+  }
+
+  ngOnDestroy(): void {
+    this.stopPolling = true;
+    if(this.timeoutId) {
+      clearTimeout(this.timeoutId);
+    }
+  }
+
+  refreshAvailAliquotGroups(): void {
+    this.isLoading = true;
+    this.httpGetAvailableAliquots().subscribe((data) => { // TODO: add error handling
+      this.isLoading = false;
+      this.availableAliquotGroups = data;
+    })
+
+    if(!this.stopPolling) {
+      this.timeoutId = setTimeout(() => {
+        this.refreshAvailAliquotGroups();
+      }, this.DELAY_SECONDS * 1000)
+    }
+  }
 
   httpGetAvailableAliquots(): Observable<any[]> {
     let fwServer = window.location.protocol + '//' + window.location.hostname + '/api/v1/';

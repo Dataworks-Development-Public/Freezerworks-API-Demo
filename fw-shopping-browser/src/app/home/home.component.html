@@ -1,6 +1,16 @@
-<p>aliquot groups:</p>
+
+<div style="display: flex">
+    <h3>Aliquot Groups</h3>
+    @if(aliquotsSvc.isLoading) {
+        <h5>Loading...</h5>
+    }
+</div>
 <div class="tilesContainer">    
-    @for (group of aliquotGroups; track group){
+    @for (group of aliquotsSvc.availableAliquotGroups; track group.name){
         <app-tile [group]="group" routerLink="./{{group.name}}"></app-tile>
-    }    
+    } @empty {
+        @if( !aliquotsSvc.isLoading) {
+            <h2>No Aliquots found</h2>
+        }
+    }
 </div>
