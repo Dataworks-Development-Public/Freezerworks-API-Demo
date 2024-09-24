@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CartItem } from './cart-item.model';
 import { RouterLink } from '@angular/router';
+
+import { CartItem } from './cart-item.model';
+
 import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({

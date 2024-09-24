@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { RequisitionBody } from '../requisition/requisition-body.model';
+
 import { map, Observable } from 'rxjs';
+
+import { RequisitionBody } from '../requisition/requisition-body.model';
 
 @Injectable({
   providedIn: 'root'

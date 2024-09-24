@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
 import { map, Observable } from 'rxjs';
 
 @Injectable({
@@ -11,7 +12,7 @@ export class AliquotsService {
     private http: HttpClient,
   ) { }
 
-  httpGetAliquots(): Observable<any[]> {
+  httpGetAvailableAliquots(): Observable<any[]> {
     let fwServer = window.location.protocol + '//' + window.location.hostname + '/api/v1/';
     const aliquotGroups: any[] = [];
     

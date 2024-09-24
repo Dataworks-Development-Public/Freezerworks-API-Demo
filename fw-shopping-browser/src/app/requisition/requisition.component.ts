@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ShoppingCartService } from '../services/shopping-cart.service';
+import { Router } from '@angular/router';
+
 import { RequisitionBody } from './requisition-body.model';
+
+import { ShoppingCartService } from '../services/shopping-cart.service';
 import { RequisitionService } from '../services/requisition.service';
 import { AliquotsService } from '../services/aliquots.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-requisition-form',
@@ -24,15 +26,19 @@ export class RequisitionFormComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.aliquotsSvc.httpGetAliquots().subscribe((data) => {
+    this.aliquotsSvc.httpGetAvailableAliquots().subscribe((data) => {
       let availableAliquots = data;
       const requestAliquots = [];
       // compile array of available aliquot ids to be requested
       for(let group of availableAliquots) {
         for(let item of this.cartSvc.cart) {
           if(group.name === item.itemName) {
-            for(let i=0; i<item.itemQty; i++) {
-              requestAliquots.push(group.data[i].PK_AliquotUID) // TODO: need to check if the requested QTY is actually available
+            if(group.data.length > item.itemQty) 
+              for(let i=0; i<item.itemQty; i++) 
+                requestAliquots.push(group.data[i].PK_AliquotUID);
+            else {
+              alert(item.itemQty + " x " + item.itemName + " requested but only " + group.data.length + " are available, please adjust amount");
+              this.Router.navigateByUrl('/shopping-cart');
             }
           }
         }

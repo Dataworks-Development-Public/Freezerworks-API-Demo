@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ShoppingCartService } from '../services/shopping-cart.service';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
   selector: 'app-item-detail',
@@ -15,8 +16,8 @@ export class ItemDetailComponent{
   quantity: number = 1;
 
   constructor(
-    public cartSvc: ShoppingCartService,
-    private Router: Router
+    private Router: Router,
+    public cartSvc: ShoppingCartService
   ) { }
 
   onAddToCartClick(): void {
