@@ -1,7 +1,7 @@
 
-<div class="">
+<div class="d-flex flex-column">
     <h3>Aliquot Selection</h3>
-    <div class="tilesContainer">    
+    <div class="d-flex flex-wrap justify-content-center">    
         @for (group of aliquotGroups; track group){
             <app-tile [group]="group" routerLink="./{{group.name}}"></app-tile>
         }    
