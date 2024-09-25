@@ -1,5 +1,9 @@
 <div class="tileContainer card border-2  m-3" style="width: 16rem;" role="button"> 
-    <img [src]="getTileIcon(sampleType)" class="card-img-top bg-light p-3" alt=""> 
+    <img 
+        class="card-img-top bg-light p-3" 
+        [src]="iconSvc.getIcon(sampleType)" 
+        alt=""
+    > 
     <div class="card-body">
         <h6 class="card-title">{{ sampleType }}</h6>  
         <p class="card-text">{{ qtyAvailable + " Aliquots available" }}</p>

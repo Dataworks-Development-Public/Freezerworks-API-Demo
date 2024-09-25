@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import { AliquotsService } from '../services/aliquots.service';
+import { IconService } from '../services/icon.service';
 
 @Component({
   selector: 'app-item-detail',
@@ -12,32 +13,30 @@ import { AliquotsService } from '../services/aliquots.service';
   templateUrl: './item-detail.component.html',
   styleUrl: './item-detail.component.scss'
 })
-export class ItemDetailComponent implements OnInit{
+export class ItemDetailComponent{
   @Input({ required: true }) sampleType!: string;
-  public qtyAvailable: number = 0;
 
   quantity: number = 1;
 
   constructor(
     private Router: Router,
     private cartSvc: ShoppingCartService,
-    private aliquotSvc: AliquotsService
+    public aliquotSvc: AliquotsService,
+    public iconSvc: IconService
   ) { }
 
-  ngOnInit(): void {
-    if(this.aliquotSvc.availableAliquotGroups)
-        this.qtyAvailable = this.aliquotSvc.availableAliquotGroups[this.sampleType].length
-  }
-
   quantityChangeVerification(value: number) {
-      if(value > this.qtyAvailable) {
+    if(this.aliquotSvc.availableAliquotGroups) {
+      const qtyAvailable = this.aliquotSvc.availableAliquotGroups[this.sampleType].length
+      if(value > qtyAvailable) {
         alert("Seleceted quantity exceeds quantity available");
-        this.quantity = this.qtyAvailable;
+        this.quantity = qtyAvailable;
       }
       else if(value < 1) {
         alert("Quantity must be at least 1");
         this.quantity = 1;
       }
+    }
   }
 
   onAddToCartClick(): void {

@@ -1,14 +1,39 @@
-<div>
-    
-</div>
-<div>
-    <h1>Look at this item detail: {{ sampleType }}</h1>
-    <h3>{{ qtyAvailable }} available</h3>
-    <input 
-        type="number" 
-        [(ngModel)]="quantity" 
-        (ngModelChange)="quantityChangeVerification($event)" 
-        [max]="qtyAvailable" min=1
-    >
-    <button (click)="onAddToCartClick()">Add to Cart</button>
+
+<div class="d-inline-flex w-100 mt-5">
+    <div class="d-lg-flex d-none d-md-block justify-content-center w-50">
+        <img 
+            class="opacity-25 w-75" 
+            [src]="iconSvc.getIcon(sampleType)"
+            alt=""
+        >
+    </div>
+    <div class="d-inline-flex w-50">
+        <div class="d-sm-flex flex-column w-50">
+            @let quantityAvailable = aliquotSvc.availableAliquotGroups?.[sampleType]?.length;
+
+            <div class="pb-5">
+                <h1>{{ sampleType }}</h1>
+                <h3>{{ quantityAvailable ?? 0 }} available</h3>
+            </div>
+            <div class="d-inline-flex">
+                <h5>Select Quantity:</h5>
+                <input 
+                    class="rounded h5"
+                    type="number" 
+                    [(ngModel)]="quantity" 
+                    (ngModelChange)="quantityChangeVerification($event)" 
+                    [max]="quantityAvailable ?? 1" min=1
+                >
+            </div> 
+        </div>  
+        <div class="d-grid mx-auto w-50 mt-3">        
+            <button 
+                type="button" 
+                class="btn btn-dark btn-lg " 
+                (click)="onAddToCartClick()"
+            >
+                Add to Cart
+            </button>
+        </div>
+    </div>
 </div>
