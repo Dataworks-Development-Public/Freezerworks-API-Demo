@@ -1,3 +1,14 @@
-<h1>Look at this item detail: {{ sampleType }}</h1>
-<input type="number" [(ngModel)]="quantity">
-<button (click)="onAddToCartClick()">Add to Cart</button>
+<div>
+    
+</div>
+<div>
+    <h1>Look at this item detail: {{ sampleType }}</h1>
+    <h3>{{ qtyAvailable }} available</h3>
+    <input 
+        type="number" 
+        [(ngModel)]="quantity" 
+        (ngModelChange)="quantityChangeVerification($event)" 
+        [max]="qtyAvailable" min=1
+    >
+    <button (click)="onAddToCartClick()">Add to Cart</button>
+</div>

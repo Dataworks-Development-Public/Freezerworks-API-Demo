@@ -35,7 +35,7 @@ export class RequisitionFormComponent implements OnInit{
         const cartItemQty = cart[cartSampleType]
         const availableAliquotGroup = availableAliquotGroups[cartSampleType];
 
-        if(availableAliquotGroup.length > cartItemQty){
+        if(availableAliquotGroup.length >= cartItemQty){
           for(let i = 0; i < cartItemQty; i++) {
             requestAliquots.push(availableAliquotGroup[i].PK_AliquotUID);
           }
