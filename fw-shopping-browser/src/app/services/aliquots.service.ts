@@ -13,21 +13,28 @@ export class AliquotsService implements OnDestroy {
   public isLoading: boolean = false;
   private timeoutId: any = null;
   private stopPolling: boolean = false;
-  readonly DELAY_SECONDS: number = 5 // TODO: make this longer  (probably 30 seconds)
+  readonly ALIQUOT_REFRESH_INTERVAL_SECONDS: number = 30;
 
-  constructor(private http: HttpClient) { 
-    this.refreshAvailAliquotGroups();
-  }
+  constructor(private http: HttpClient) {}
 
   ngOnDestroy(): void {
+    // end polling when component is being destroyed
     this.stopPolling = true;
     if(this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
   }
 
-  refreshAvailAliquotGroups(): void {
+  /**
+   * Triggers an immediate api call to get the available aliquots and schedules periodic refreshes of aliquots. Calling this method again while a timeout is scheduled will cancel existing timeout and schedule a new one. 
+   */
+  syncAvailAliquotGroups(): void {
     this.isLoading = true;
+    if(this.timeoutId){
+      // clear pending automatic refresh so that the existing polling cycle can be replaced by this one 
+      clearTimeout(this.timeoutId);
+    }
+
     this.httpGetAvailableAliquots().subscribe((data) => { // TODO: add error handling
       this.isLoading = false;
       this.availableAliquotGroups = data;
@@ -35,11 +42,14 @@ export class AliquotsService implements OnDestroy {
 
     if(!this.stopPolling) {
       this.timeoutId = setTimeout(() => {
-        this.refreshAvailAliquotGroups();
-      }, this.DELAY_SECONDS * 1000)
+        this.syncAvailAliquotGroups();
+      }, this.ALIQUOT_REFRESH_INTERVAL_SECONDS * 1000)
     }
   }
 
+  /**
+   * Returns available aliquots separated into groups by Aliquot_Type
+   */
   httpGetAvailableAliquots(): Observable<Record<string, Aliquot[]>> {
     return this.http.get(`${fwServer}aliquots?limit=0`).pipe(map((res: any) => {
       const data = res.entities;

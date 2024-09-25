@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 
 import { TileComponent } from './tile/tile.component';
 
 import { ShoppingCartService } from './services/shopping-cart.service';
 import { KeyValuePipe } from '@angular/common';
+import { AliquotsService } from './services/aliquots.service';
 
 
 export const fwServer = window.location.protocol + '//' + window.location.hostname + '/api/v1/';
@@ -16,8 +17,13 @@ export const fwServer = window.location.protocol + '//' + window.location.hostna
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
-    public cartSvc: ShoppingCartService
+    public cartSvc: ShoppingCartService,
+    public aliquotSvc: AliquotsService
   ){ }  
+
+  ngOnInit(): void {
+    this.aliquotSvc.syncAvailAliquotGroups();
+  }
 }
