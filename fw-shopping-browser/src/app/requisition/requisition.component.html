@@ -1,7 +1,7 @@
 <div>
-    @for (item of cartSvc.cart; track item.itemName) {
+    @for (item of cartSvc.cart | keyvalue; track item.key) {
         <div>
-            <p>{{ item.itemName + ":          " + item.itemQty }}</p>
+            <p>{{ item.key + ":          " + item.value }}</p>
         </div>
     }
 </div>

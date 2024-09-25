@@ -1,7 +1,7 @@
 <div>
     <nav class="navbar navbar-expand-lg bg-secondary-subtle">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Fancy Company Sample Shop</a>
+          <a class="navbar-brand" routerLink="samples">Fancy Company Sample Shop</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -14,7 +14,7 @@
                 <a class="nav-link" routerLink="my-requests">My Requests</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" routerLink="shopping-cart">{{ cartSvc.cart.length ? cartSvc.cart.length : null }}<i class="bi bi-cart"></i></a>
+                <a class="nav-link" routerLink="shopping-cart">{{ (cartSvc.cart| keyvalue).length ? (cartSvc.cart| keyvalue).length : null }}<i class="bi bi-cart"></i></a>
               </li>
             </ul>
           </div>
