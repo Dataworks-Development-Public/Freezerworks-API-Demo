@@ -8,7 +8,7 @@ export class ShoppingCartService {
 
   constructor() { }
 
-  setQuantity(name: string, quantity: number) {
+  setItemQuantity(name: string, quantity: number) {
     this.cart[name] = quantity;
   }
 

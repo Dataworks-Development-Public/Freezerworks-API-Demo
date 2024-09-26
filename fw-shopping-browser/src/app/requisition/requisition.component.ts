@@ -8,6 +8,7 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
 import { RequisitionService } from '../services/requisition.service';
 import { AliquotsService } from '../services/aliquots.service';
 import { KeyValuePipe } from '@angular/common';
+import { IconService } from '../services/icon.service';
 
 @Component({
   selector: 'app-requisition-form',
@@ -18,12 +19,22 @@ import { KeyValuePipe } from '@angular/common';
 })
 export class RequisitionFormComponent implements OnInit{
   public requisition = new RequisitionBody();
+  public formFields = [ // [requisition model key, field name]
+    ['organizationName', 'Organization:'],
+    ['fullName', 'Contact Name:'],
+    ['cellNumber', 'Phone:'],
+    ['addressStreet', 'Address:'],
+    ['addressLocality', 'City:'],
+    ['addressStateOrProvince', 'State:'],
+    ['addressPostalCode', 'Postal Code:']
+  ]
 
   constructor(
     private aliquotsSvc: AliquotsService,
     private Router: Router,
     private requisitionSvc: RequisitionService,
-    public cartSvc: ShoppingCartService
+    public cartSvc: ShoppingCartService,
+    public iconSvc: IconService
   ) { }
 
   ngOnInit(): void {
@@ -53,6 +64,7 @@ export class RequisitionFormComponent implements OnInit{
     this.requisitionSvc.httpCreateRequisition(this.requisition).subscribe(() => {
       this.cartSvc.clearCart();
       this.aliquotsSvc.refreshAvailAliquotGroups();
+      alert("Requisition submitted!");
       this.Router.navigateByUrl('/samples');
     });
   }

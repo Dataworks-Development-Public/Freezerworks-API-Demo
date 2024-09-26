@@ -28,7 +28,6 @@ export class MyRequestsComponent implements OnInit {
           this.myRequests.push(requisition);
         }
       }
-      console.log(this.myRequests);
     });
   }
 
