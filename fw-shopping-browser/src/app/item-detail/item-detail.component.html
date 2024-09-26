@@ -12,7 +12,7 @@
 
             <div class="pb-5">
                 <h1>{{ sampleType }}</h1>
-                <h3>{{ quantityAvailable ?? 0 }} available</h3>
+                <h3>{{ aliquotSvc.isLoading ? "Loading availability..." : (quantityAvailable ?? 0) + " available" }}</h3>
             </div>
             <div class="input-group border rounded border-2 border-dark-subtle m-2">
                 <span class="input-group-text">Select Quantity:</span>
