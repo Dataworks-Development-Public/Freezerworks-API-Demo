@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import { KeyValuePipe } from '@angular/common';
 import { AliquotsService } from '../services/aliquots.service';
+import { IconService } from '../services/icon.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -18,7 +19,8 @@ export class ShoppingCartComponent {
 
   constructor(
     public aliquotSvc: AliquotsService,
-    public cartSvc: ShoppingCartService
+    public cartSvc: ShoppingCartService,
+    public iconSvc: IconService
   ) {}  
 
   quantityChangeVerification(name: string, value: number) {

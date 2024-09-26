@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { map, Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 
 import { fwServer } from '../app.component';
 import { RequisitionBody } from '../requisition/requisition-body.model';
@@ -16,10 +16,24 @@ export class RequisitionService {
   ) { }
 
   httpCreateRequisition(requisition: RequisitionBody): Observable<any> {
-    return this.http.post(`${fwServer}requisitions/`, requisition).pipe(map((res: any) => res.entities));
+    return this.http
+      .post(`${fwServer}requisitions/`, requisition)
+      .pipe(map((res: any) => res),
+      catchError((error) => {
+        console.error(error);
+        return of(error);
+      })
+    );
   }
 
   httpGetRequisitions(): Observable<any> {
-    return this.http.get(`${fwServer}requisitions/`).pipe(map((res: any) => res.entities));
+    return this.http
+      .get(`${fwServer}requisitions/`)
+      .pipe(map((res: any) => res.entities),
+      catchError((error) => {
+        console.error(error);
+        return of(error);
+      })
+    );
   }
 }

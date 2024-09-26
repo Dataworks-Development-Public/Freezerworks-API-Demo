@@ -1,16 +1,51 @@
-<p>Items in Cart</p>
-@for (item of cartSvc.cart | keyvalue; track item.key) {
-    @if (aliquotSvc.availableAliquotGroups) {
-        <div>
-            <label>{{ item.key }}</label>
-            <input 
-                type="number" 
-                [(ngModel)]="cartSvc.cart[item.key]" 
-                (ngModelChange)="quantityChangeVerification(item.key, $event)" min="1" 
-                [max]="aliquotSvc.availableAliquotGroups[item.key].length"
+@if ((cartSvc.cart | keyvalue).length) {
+    <div class="row m-2">
+        <h3>Items in Cart</h3>
+        <div class="col-12 col-md-9 col-lg-6">
+            @for (item of cartSvc.cart | keyvalue; track item.key) {
+                @if (aliquotSvc.availableAliquotGroups) {
+                    <div class="input-group m-2">
+                        <span class="input-group-text border-2 border-dark-subtle fs-4">
+                            <img class="me-2" style="width: 30px;" [src]="iconSvc.getIcon(item.key)">
+                            {{ item.key }}
+                            <em class="fs-6 ms-2">{{ aliquotSvc.availableAliquotGroups[item.key].length + " available" }}</em>
+                        </span>
+                        <input 
+                            type="number" 
+                            class="form-control border-2 border-dark-subtle text-end"
+                            [id]="item.key +'CartQty'"
+                            [name]="'Change ' + item.key + ' quantity'"
+                            [(ngModel)]="cartSvc.cart[item.key]" 
+                            (ngModelChange)="quantityChangeVerification(item.key, $event)"
+                            min="1" 
+                            [max]="aliquotSvc.availableAliquotGroups[item.key].length"
+                        >   
+                        <button 
+                            type="button"
+                            class="btn btn-dark border-2 border-dark-subtle"
+                            [id]="item.key + 'Remove'"
+                            [name]="'Remove ' + item.key"
+                            (click)="removeCartItem(item.key)"
+                        >
+                            Remove
+                        </button>    
+                    </div> 
+                }    
+            }
+            <button
+                type="button"
+                class="btn btn-dark btn-lg mt-5 float-end fs-4"
+                name="checkout"
+                id="checkoutBtn"
+                routerLink="./checkout"
             >
-            <button (click)="removeCartItem(item.key)">remove</button>        
+                Checkout
+            </button>
         </div>
-    }    
+    </div>
 }
-<button routerLink="./checkout">Checkout</button>
+@else {
+    <div class="m-2">
+        <h3>Shopping Cart is Empty</h3>
+    </div>
+}

@@ -8,7 +8,7 @@ export class RequisitionBody {
     public aliquots: AliquotSet;
     public purpose: string;
     public shipToContactId: number;
-    public customShipToAddress;
+    public customShipToAddress: Record<string, any> = {};
 
     constructor() {
         this.aliquots = {
