@@ -52,7 +52,7 @@ export class RequisitionFormComponent implements OnInit{
   submitRequisition() {
     this.requisitionSvc.httpCreateRequisition(this.requisition).subscribe(() => {
       this.cartSvc.clearCart();
-      this.aliquotsSvc.syncAvailAliquotGroups();
+      this.aliquotsSvc.refreshAvailAliquotGroups();
       this.Router.navigateByUrl('/samples');
     });
   }

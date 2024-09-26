@@ -8,43 +8,19 @@ import { fwServer } from '../app.component';
 @Injectable({
   providedIn: 'root'
 })
-export class AliquotsService implements OnDestroy {
+export class AliquotsService {
   public availableAliquotGroups: Record<string, Aliquot[]> | null = null;
   public isLoading: boolean = false;
-  private timeoutId: any = null;
-  private stopPolling: boolean = false;
-  readonly ALIQUOT_REFRESH_INTERVAL_SECONDS: number = 30;
-
+  
   constructor(private http: HttpClient) {}
 
-  ngOnDestroy(): void {
-    // end polling when component is being destroyed
-    this.stopPolling = true;
-    if(this.timeoutId) {
-      clearTimeout(this.timeoutId);
-    }
-  }
-
-  /**
-   * Triggers an immediate api call to get the available aliquots and schedules periodic refreshes of aliquots. Calling this method again while a timeout is scheduled will cancel existing timeout and schedule a new one. 
-   */
-  syncAvailAliquotGroups(): void {
+  refreshAvailAliquotGroups(): void {
     this.isLoading = true;
-    if(this.timeoutId){
-      // clear pending automatic refresh so that the existing polling cycle can be replaced by this one 
-      clearTimeout(this.timeoutId);
-    }
-
-    this.httpGetAvailableAliquots().subscribe((data) => { // TODO: add error handling
+    
+    this.httpGetAvailableAliquots().subscribe((data) => {
       this.isLoading = false;
       this.availableAliquotGroups = data;
     })
-
-    if(!this.stopPolling) {
-      this.timeoutId = setTimeout(() => {
-        this.syncAvailAliquotGroups();
-      }, this.ALIQUOT_REFRESH_INTERVAL_SECONDS * 1000)
-    }
   }
 
   /**
