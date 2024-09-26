@@ -1,17 +1,24 @@
 <div class="col-12 col-md-9 col-lg-6">
     <h4 class="p4">Create a new Requisition</h4>
-    <h5>Selected Aliquots:</h5>
-    <div class="ms-5">
-        @for (item of cartSvc.cart | keyvalue; track item.key) {
-            <div class="input-group w-50">
-                <span class="input-group-text w-100">
-                    <img class="me-2" style="width: 30px;" [src]="iconSvc.getIcon(item.key)">
-                    {{ item.key + ":          " + item.value }}
-                </span>
-            </div>
-        }
-    </div>
-    <h5>Shipping/Contact Info:</h5>
+    @let cartItems = cartSvc.cart | keyvalue;
+
+    @if(cartItems.length == 0) {
+        <h5>Cart is empty. Please add items to your cart.</h5>
+    } @else {
+        <h5>Selected Aliquots:</h5>
+        <div class="ms-5">
+            @for (item of cartItems; track item.key) {
+                <div class="input-group w-50">
+                    <span class="input-group-text w-100">
+                        <img class="me-2" style="width: 30px;" [src]="iconSvc.getIcon(item.key)">
+                        {{ item.key + ":          " + item.value }}
+                    </span>
+                </div>
+            }
+        </div>
+    }
+
+    <h5 style="margin-top: 20px">Shipping/Contact Info:</h5>
     <form (submit)="submitRequisition()">
         @for (field of formFields; track field[0]) {
             <div class="input-group border rounded border-2 border-dark-subtle m-2">
@@ -27,6 +34,7 @@
             </div>
         }
         <button 
+            [disabled]="cartItems.length == 0"
             type="submit" 
             class="btn btn-dark btn-lg mt-5 float-end fs-4"
             name="Submint Requisition"
