@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, isDevMode } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 
 import { TileComponent } from './tile/tile.component';
@@ -8,7 +8,7 @@ import { KeyValuePipe } from '@angular/common';
 import { AliquotsService } from './services/aliquots.service';
 
 
-export const fwServer = window.location.protocol + '//' + window.location.hostname + '/api/v1/';
+export const apiBaseUrl = isDevMode() ? window.location.protocol + '//' + window.location.hostname + '/api/v1/' : '../api/v1/'; 
 
 @Component({
   selector: 'app-root',

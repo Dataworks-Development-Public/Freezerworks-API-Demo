@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { map, Observable } from 'rxjs';
 
-import { fwServer } from '../app.component';
+import { apiBaseUrl } from '../app.component';
 import { RequisitionBody } from '../requisition/requisition-body.model';
 
 @Injectable({
@@ -16,10 +16,10 @@ export class RequisitionService {
   ) { }
 
   httpCreateRequisition(requisition: RequisitionBody): Observable<any> {
-    return this.http.post(`${fwServer}requisitions/`, requisition).pipe(map((res: any) => res.entities));
+    return this.http.post(`${apiBaseUrl}requisitions/`, requisition).pipe(map((res: any) => res.entities));
   }
 
   httpGetRequisitions(): Observable<any> {
-    return this.http.get(`${fwServer}requisitions/`).pipe(map((res: any) => res.entities));
+    return this.http.get(`${apiBaseUrl}requisitions/`).pipe(map((res: any) => res.entities));
   }
 }
