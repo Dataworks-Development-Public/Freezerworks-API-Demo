@@ -1,16 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 
 import { RequisitionService } from '../services/requisition.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-my-requests',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './my-requests.component.html',
   styleUrl: './my-requests.component.scss'
 })
 export class MyRequestsComponent implements OnInit {
   public myRequests: any[] = [];
+  public requestFields = [
+    ['Date requested:', 'requisitionDate'],
+    ['Status:', 'statusText'],
+    // ['Purpose of requisition:', 'purpose'],
+    ['Aliquots requested:', 'numberOfAliquots']
+  ];
 
   constructor(
     private requisitionSvc: RequisitionService

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnDestroy } from '@angular/core';
-import { Aliquot } from '../interface';
+import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+
+import { Aliquot } from '../interface';
 
 import { apiBaseUrl } from '../app.component';
 
