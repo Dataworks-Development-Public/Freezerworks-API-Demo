@@ -5,7 +5,7 @@
             @for (item of cartSvc.cart | keyvalue; track item.key) {
                 @if (aliquotSvc.availableAliquotGroups) {
                     <div class="input-group m-2">
-                        <span class="input-group-text border-2 border-dark-subtle fs-4">
+                        <span class="input-group-text border-2 border-dark-subtle fs-4 w-75 text-wrap">
                             <img class="me-2" style="width: 30px;" [src]="iconSvc.getIcon(item.key)">
                             {{ item.key }}
                             <em class="fs-6 ms-2">{{ aliquotSvc.availableAliquotGroups[item.key].length + " available" }}</em>
