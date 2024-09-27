@@ -1,5 +1,15 @@
 @import "bootstrap/scss/bootstrap";
 
+.tileContainer{
+    width: 14rem;
+}
 .tileContainer:hover{
     @extend .shadow;
+}
+@media only screen and (max-width: 576px) {
+    .tileContainer {
+        align-items: center;
+        width: 90%;
+        min-width: 20rem;
+    }
 }

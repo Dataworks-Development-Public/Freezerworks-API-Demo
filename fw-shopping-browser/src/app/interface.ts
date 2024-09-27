@@ -34,3 +34,54 @@ export interface Aliquot {
     Slide_Stain_Type: any,
     Slide_Stain_Pass_Fail: any
 }
+
+export interface requisitionDetails {
+    aliquots: {
+        aliquotsInRequisition: number[],
+        aliquotsRequested: number[],
+        fieldName: string
+    },
+    customShipToAddress: {
+        active: boolean,
+        addressCountry: string,
+        addressLocality: string,
+        addressPostalCode: string,
+        addressRegion: string,
+        addressStateOrProvince: string,
+        addressStreet: string,
+        addressStreet2: string,
+        cellNumber: string,
+        custodian: false,
+        email: string,
+        faxNumber: string,
+        filterString: string,
+        firstName: string,
+        freezerworksUser: true,
+        fullName: string,
+        fullNameOrganization: string,
+        id: number,
+        lastName: string,
+        organizationName: string,
+        protocolContact: false,
+        shipOrganization: string,
+        shipToName: string,
+        shippingContact: false,
+        telephoneExtension: string,
+        telephoneNumber: string,
+        userId: number
+    },
+    dateDue: string,
+    id: number,
+    locked: boolean,
+    numberOfAliquots: number,
+    purpose: string,
+    rejectionReason: string,
+    requesterId: number,
+    requisitionDate: string,
+    requisitionTime: string,
+    searchCriteria: {},
+    shipToContactId: number,
+    statusId: number,
+    statusText: string,
+    workflowRunId: number
+}

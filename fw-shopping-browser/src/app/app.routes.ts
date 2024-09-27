@@ -5,6 +5,7 @@ import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { MyRequestsComponent } from './my-requests/my-requests.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { RequisitionFormComponent } from './requisition/requisition.component';
+import { RequestDetailComponent } from './request-detail/request-detail.component';
 
 export const routes: Routes = [
     {
@@ -18,6 +19,10 @@ export const routes: Routes = [
     {
       path:'my-requests',
       component: MyRequestsComponent
+    },
+    {
+      path:'my-requests/:requestId',
+      component: RequestDetailComponent
     },
     {
       path: 'shopping-cart',

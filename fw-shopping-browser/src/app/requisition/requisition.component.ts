@@ -38,26 +38,29 @@ export class RequisitionFormComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.aliquotsSvc.httpGetAvailableAliquots().subscribe((availableAliquotGroups) => {
-      const requestAliquots = [];
-      const cart = this.cartSvc.cart;
-      // compile array of available aliquot ids to be requested
-      for(let cartSampleType in cart){
-        const cartItemQty = cart[cartSampleType]
-        const availableAliquotGroup = availableAliquotGroups[cartSampleType];
+    if(Object.keys(this.cartSvc.cart).length) {
+      this.aliquotsSvc.httpGetAvailableAliquots().subscribe((availableAliquotGroups) => {
+        const requestAliquots = [];
+        const cart = this.cartSvc.cart;
+        // compile array of available aliquot ids to be requested
+        for(let cartSampleType in cart){
+          const cartItemQty = cart[cartSampleType]
+          const availableAliquotGroup = availableAliquotGroups[cartSampleType];
 
-        if(availableAliquotGroup.length >= cartItemQty){
-          for(let i = 0; i < cartItemQty; i++) {
-            requestAliquots.push(availableAliquotGroup[i].PK_AliquotUID);
+          if(availableAliquotGroup.length >= cartItemQty){
+            for(let i = 0; i < cartItemQty; i++) {
+              requestAliquots.push(availableAliquotGroup[i].PK_AliquotUID);
+            }
+          } else {
+            alert(cartItemQty + " x " + cartSampleType + " requested but only " + availableAliquotGroup.length + " are available, please adjust amount");
+            this.Router.navigateByUrl('/shopping-cart');
           }
-        } else {
-          alert(cartItemQty + " x " + cartSampleType + " requested but only " + availableAliquotGroup.length + " are available, please adjust amount");
-          this.Router.navigateByUrl('/shopping-cart');
         }
-      }
 
-      this.requisition.aliquots.aliquotsRequested = requestAliquots;
-    });
+        this.requisition.aliquots.aliquotsRequested = requestAliquots;
+      });
+    }
+    else this.Router.navigateByUrl("/");
   }
 
   submitRequisition() {

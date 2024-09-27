@@ -36,4 +36,15 @@ export class RequisitionService {
       })
     );
   }
+
+  httpGetRequisitionById(id: number): Observable<any> {    
+    return this.http
+      .get(`${apiBaseUrl}requisitions/${id}`)
+      .pipe(map((res: any) => res.properties),
+      catchError((error) => {
+        console.error(error);
+        return of(error);
+      })
+    );
+  }
 }
